@@ -12,14 +12,14 @@ function App() {
       <Title title={`Dashboard - ${totalFilms} films dont ${total4K} en 4K`} />
 
       <article>
-        <BlurayCard id={1} title="Retour vers le futur" year={1986} format="Blu-ray" />
-        <BlurayCard id={2} title="Retour vers le futur 2" year={1988} format="Blu-ray" />
-        <BlurayCard id={3} title="Retour vers le futur 3" year={1989} format="Blu-ray" />
+        <BlurayCard title="Retour vers le futur" year={1986} format="Blu-ray" />
+        <BlurayCard title="Retour vers le futur 2" year={1988} format="Blu-ray" />
+        <BlurayCard title="Retour vers le futur 3" year={1989} format="Blu-ray" />
       </article>
       <section className="cards">
         {blurays.map((bluray) => (
 
-          <BlurayCard id={bluray.id} title={bluray.title} year={bluray.year} format={bluray.format} />
+          <BlurayCard key={bluray.id} title={bluray.title} year={bluray.year} format={bluray.format} />
         ))}
       </section>
     </main>
