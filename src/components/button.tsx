@@ -1,10 +1,11 @@
 export type ButtonProps = {
     title: string;
+    onClick: () => void;
 }
 
 
-export function Button({ title }: ButtonProps) {
+export function Button({ title , onClick}: ButtonProps) {
     return (
-        <button>{title}</button>
+        <button onClick={onClick}>{title}</button>
     )
 }
