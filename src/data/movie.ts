@@ -1,4 +1,4 @@
-export type Film = {
+export type Movie = {
     id: number;
     title: string;
     year: number;
@@ -6,7 +6,7 @@ export type Film = {
 }
 
 
-export const blurays: Film[] = [
+export const blurays: Movie[] = [
     {
         id: 1,
         title: "Retour vers le futur",

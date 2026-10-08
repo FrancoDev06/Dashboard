@@ -2,38 +2,58 @@ import './App.css'
 import { Title } from './components/title'
 import { BlurayCard } from './components/bluray'
 import { Button } from './components/button'
-import { blurays } from './data/film'
+import { blurays } from './data/movie'
 import { useState } from 'react'
-import { AjoutBluray } from './components/ajoutBluray'
-import type { Film } from './data/film'
+import { AjoutBluray } from './components/addBluray'
+import { Slide } from './components/slide'
+import type { Movie } from './data/movie'
 
 function App() {
 
-  const [films, setFilms] = useState<Film[]>(blurays)
+  const [movies, setMovies] = useState<Movie[]>(blurays)
+  const [filter, setFilter] = useState<'Tous' | Movie['format']>('Tous')
+  const [search, setSearch] = useState('')
 
-  const totalFilms = films.length
-  const total4K = films.filter((film) => film.format === 'Ultra 4k').length
-  const deleteFilm = (id: number) => {
-    setFilms(films.filter((film) => film.id !== id))
+  const totalMovies = movies.length
+  const total4K = movies.filter((movie) => movie.format === 'Ultra 4k').length
+  const filteredMovies = movies.filter((movie) => {
+    const goodFormat = filter === 'Tous' || movie.format === filter
+    const goodTitle = movie.title.toLowerCase().includes(search.toLowerCase())
+    return goodFormat && goodTitle
+  })
+
+  const deleteMovie = (id: number) => {
+    setMovies(movies.filter((movie) => movie.id !== id))
   }
 
-  function ajouter(film: Omit<Film, 'id'>) {
-  setFilms([...films, { ...film, id: Date.now() }])
-}
+  function addMovie(film: Omit<Movie, 'id'>) {
+    setMovies([...movies, { ...film, id: Date.now() }])
+  }
 
   return (
     <main>
-      <Title title={`Dashboard - ${totalFilms} films dont ${total4K} en 4K`} />
-      <AjoutBluray onAdd={ajouter} />
+      <Title title={`Dashboard - ${totalMovies} films dont ${total4K} en 4K`} />
+      <Slide movies={movies} />
+
+
+      {filteredMovies.length === 0 && <p>Aucun film trouvé.</p>}
+      <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Rechercher un titre" />
+      <AjoutBluray onAdd={addMovie} />
+      <div>
+        <Button title="Tous" onClick={() => setFilter('Tous')} />
+        <Button title="Blu-ray" onClick={() => setFilter('Blu-ray')} />
+        <Button title="Ultra 4k" onClick={() => setFilter('Ultra 4k')} />
+        <Button title="Blu-ray 3D" onClick={() => setFilter('Blu-ray 3D')} />
+      </div>
       <section className="cards">
-        {films.map((film) => (
-          <div key={film.id}>
+        {filteredMovies.map((movie) => (
+          <div key={movie.id}>
             <BlurayCard
-              title={film.title}
-              year={film.year}
-              format={film.format}
+              title={movie.title}
+              year={movie.year}
+              format={movie.format}
             />
-            <Button onClick={() => deleteFilm(film.id)} title="Supprimer" />
+            <Button onClick={() => deleteMovie(movie.id)} title="Supprimer" />
           </div>
         ))}
       </section>

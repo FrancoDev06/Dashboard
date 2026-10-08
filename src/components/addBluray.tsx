@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import type { Film } from '../data/film'
+import type { Movie } from '../data/movie'
 import type { SubmitEvent } from "react";
 
 
 type AjoutBlurayProps = {
-    onAdd: (film: Omit<Film, 'id'>) => void
+    onAdd: (film: Omit<Movie, 'id'>) => void
 }
 
 export function AjoutBluray({ onAdd }: AjoutBlurayProps) {
     const [titre, setTitre] = useState('')
     const [year, setYear] = useState(0)
-    const [format, setFormat] = useState<Film['format']>('Blu-ray')
+    const [format, setFormat] = useState<Movie['format']>('Blu-ray')
 
 
     function valider(e: SubmitEvent<HTMLFormElement>) {
@@ -30,7 +30,7 @@ export function AjoutBluray({ onAdd }: AjoutBlurayProps) {
             <p>Tu tapes : {titre}</p>
             <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} placeholder="Titre" />
             <p>Tu tapes : {year}</p>
-            <select value={format} onChange={(e) => setFormat(e.target.value as Film['format'])}>
+            <select value={format} onChange={(e) => setFormat(e.target.value as Movie['format'])}>
                 <option value="Blu-ray">Blu-ray</option>
                 <option value="4k">Ultra 4k</option>
                 <option value="3D">Blu-ray 3D</option>
