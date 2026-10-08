@@ -18,9 +18,8 @@ export function Slide({ movies }: SlideProps) {
     return (
         <div>
             <h2>{movie.title}</h2>
-            <p>{index + 1} / {movies.length}</p>
             <button onClick={() => setIndex((i) => (i - 1 + movies.length) % movies.length)}>◀</button>
-            <h2>{movie.title}</h2>
+            <p>{position + 1} / {movies.length}</p>
             <button onClick={() => setIndex((i) => (i + 1) % movies.length)}>▶</button>
         </div >
 

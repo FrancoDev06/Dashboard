@@ -9,7 +9,7 @@ type AjoutBlurayProps = {
 
 export function AjoutBluray({ onAdd }: AjoutBlurayProps) {
     const [titre, setTitre] = useState('')
-    const [year, setYear] = useState(0)
+    const [year, setYear] = useState(2024)
     const [format, setFormat] = useState<Movie['format']>('Blu-ray')
 
 
@@ -27,13 +27,11 @@ export function AjoutBluray({ onAdd }: AjoutBlurayProps) {
 
         <form onSubmit={valider}>
             <input value={titre} onChange={(e) => setTitre(e.target.value)} placeholder="Titre" />
-            <p>Tu tapes : {titre}</p>
-            <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} placeholder="Titre" />
-            <p>Tu tapes : {year}</p>
+            <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} placeholder="Year" />
             <select value={format} onChange={(e) => setFormat(e.target.value as Movie['format'])}>
                 <option value="Blu-ray">Blu-ray</option>
-                <option value="4k">Ultra 4k</option>
-                <option value="3D">Blu-ray 3D</option>
+                <option value="Ultra 4k">Ultra 4k</option>
+                <option value="Blu-ray 3D">Blu-ray 3D</option>
             </select>
             <button type="submit">Ajouter</button>
         </form>
